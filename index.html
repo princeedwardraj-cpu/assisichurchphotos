@@ -3,23 +3,231 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Photo Access</title>
-<link rel="stylesheet" href="style.css">
+
+<title>St. Francis Assisi Church - Photo Gallery</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:
+    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.75)),
+    url("https://brickhouseinthecity.com/blogs/news/10-saint-francis-of-assisi-quotes-to-inspire-discipleship?srsltid=AfmBOoqSTVWojUENzPzLsZ46B7-YZszP2rRGbO75NvuuvAc5N6ozU8Pi");
+    background-size:cover;
+    background-position:center;
+    overflow:hidden;
+    position:relative;
+}
+
+.glow{
+    position:absolute;
+    width:400px;
+    height:400px;
+    background:#FFD700;
+    filter:blur(180px);
+    opacity:.15;
+    border-radius:50%;
+    top:-100px;
+    right:-100px;
+}
+
+.card{
+    width:420px;
+    padding:40px;
+    background:rgba(255,255,255,.12);
+    backdrop-filter:blur(18px);
+    border-radius:20px;
+    border:1px solid rgba(255,255,255,.2);
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+    text-align:center;
+    color:white;
+    animation:fade 1s ease;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+.cross{
+    font-size:60px;
+    margin-bottom:10px;
+}
+
+h1{
+    font-size:28px;
+    font-weight:700;
+    margin-bottom:10px;
+}
+
+h2{
+    font-size:18px;
+    font-weight:300;
+    margin-bottom:30px;
+    color:#f5f5f5;
+}
+
+input{
+    width:100%;
+    padding:15px;
+    border:none;
+    outline:none;
+    border-radius:12px;
+    font-size:16px;
+    margin-bottom:20px;
+    background:rgba(255,255,255,.2);
+    color:white;
+    transition:.3s;
+}
+
+input::placeholder{
+    color:#eeeeee;
+}
+
+button{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#FFD700;
+    color:#000;
+    font-size:17px;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    background:white;
+    transform:scale(1.03);
+}
+
+#error{
+    margin-top:15px;
+    min-height:22px;
+    color:#ffb6b6;
+    font-weight:600;
+}
+
+.footer{
+    margin-top:30px;
+    font-size:13px;
+    opacity:.85;
+    line-height:1.6;
+}
+
+.shake{
+    animation:shake .4s;
+}
+
+@keyframes shake{
+    0%,100%{transform:translateX(0);}
+    20%{transform:translateX(-8px);}
+    40%{transform:translateX(8px);}
+    60%{transform:translateX(-8px);}
+    80%{transform:translateX(8px);}
+}
+</style>
+
 </head>
+
 <body>
 
-<div class="login-box">
-    <h1>📸 Photo Gallery</h1>
-    <p>Enter the password to access the photos</p>
+<div class="glow"></div>
 
-    <input type="password" id="password" placeholder="Enter Password">
+<div class="card">
 
-    <button onclick="checkPassword()">Open Photos</button>
+<div class="cross">✝️</div>
 
-    <p id="error"></p>
+<h1>St. Francis Assisi Church</h1>
+
+<h2>Mathur, Trichy</h2>
+
+<input
+    type="password"
+    id="password"
+    placeholder="Enter Access Password"
+    autocomplete="off">
+
+<button id="loginBtn">
+    Open Photo Gallery
+</button>
+
+<div id="error"></div>
+
+<div class="footer">
+    "Whatever you do, do it all for the glory of God."<br>
+    <strong>1 Corinthians 10:31</strong>
 </div>
 
-<script src="script.js"></script>
+</div>
+
+<script>
+const PASSWORD = "14062026";
+
+const DRIVE_LINK =
+"https://drive.google.com/drive/folders/1tg2SYVi5RMYL3jy-xgWjGJsy7BrGjSpy?usp=sharing";
+
+const passwordInput = document.getElementById("password");
+const error = document.getElementById("error");
+const button = document.getElementById("loginBtn");
+
+window.onload = () => {
+    passwordInput.focus();
+};
+
+function checkPassword() {
+
+    const pass = passwordInput.value.trim();
+
+    if(pass === PASSWORD){
+
+        window.location.href = DRIVE_LINK;
+
+    }else{
+
+        error.textContent = "❌ Incorrect Password";
+        passwordInput.value = "";
+        passwordInput.focus();
+
+        passwordInput.classList.add("shake");
+
+        setTimeout(() => {
+            passwordInput.classList.remove("shake");
+        },400);
+
+    }
+}
+
+button.addEventListener("click", checkPassword);
+
+passwordInput.addEventListener("keypress", function(e){
+    if(e.key === "Enter"){
+        checkPassword();
+    }
+});
+
+passwordInput.addEventListener("input", function(){
+    error.textContent = "";
+});
+</script>
 
 </body>
 </html>
