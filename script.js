@@ -1,4 +1,4 @@
-const PASSWORD = "EVENT2026";
+const PASSWORD = "14062026";
 
 const DRIVE_LINK = "https://drive.google.com/drive/folders/1tg2SYVi5RMYL3jy-xgWjGJsy7BrGjSpy?usp=sharing";
 
